@@ -1,4 +1,3 @@
-import {TEST} from "../src";
+import ClientFetch from "../src/ClientFetch";
 
-
-console.log(TEST);
+const test1 = ClientFetch.request("http://www.baidu.com");
