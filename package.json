@@ -1,11 +1,11 @@
 {
-  "name": "@hepta/goose",
+  "name": "locomon",
   "version": "0.0.1",
   "description": "lightweight fetch tool",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server --dev --colors --config webpack/webpack.dev.config.js --mode development",
-    "test": "test"
+    "prod": "webpack --prod --progress --color --profile --config webpack/webpack.prod.config.js --mode production"
   },
   "repository": {
     "type": "git",
