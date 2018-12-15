@@ -90,7 +90,7 @@ export default class Locomon {
         }
         const body = await res.json();
 
-        onSuccess({status, body});
+        return onSuccess({status, body});
       })
       .catch(err => {
         console.log(err);

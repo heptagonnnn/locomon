@@ -1,6 +1,6 @@
 {
   "name": "locomon",
-  "version": "0.0.1",
+  "version": "0.0.1-b",
   "description": "lightweight fetch tool",
   "main": "dist/index.js",
   "scripts": {
