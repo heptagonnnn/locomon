@@ -72,7 +72,7 @@ export default class Locomon {
       url = buildUrl(url, params);
     }
 
-
+    
 
     // status校验
     const {statusValidation, onSuccess, onError} = {...this.defaultSettings, ...settings};
@@ -80,7 +80,6 @@ export default class Locomon {
 
     return fetch(url, config)
       .then(async res => {
-        console.log(res);
         const {status} = res;
         if (!statusValidation(status)) {
           const errorBody = await res.text();
@@ -93,8 +92,6 @@ export default class Locomon {
         return onSuccess({status, body});
       })
       .catch(err => {
-        console.log(err);
-        console.log(onError);
         onError(err);
       });
   }

@@ -10,5 +10,5 @@ export function buildUrl(url, params) {
     return `${key}=${params[key]}`
   }).join("&");
 
-  return `?${query}`;
+  return `${url}?${query}`;
 }
