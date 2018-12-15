@@ -2,5 +2,5 @@
 
 
 export function defaultStatusValidation(status) {
-  return status > 200 && status < 300;
+  return status > 200 && status < 400;
 }
