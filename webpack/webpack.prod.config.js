@@ -6,6 +6,10 @@ const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const {resolvePath} = require("./util/resolvePath");
 
 module.exports = merge(baseConfig, {
+  output: {
+    library: 'JSONSchemaData',
+    libraryTarget: 'umd',
+  },
   plugins: [
     new CleanWebpackPlugin('dist', {
       root: resolvePath(),
