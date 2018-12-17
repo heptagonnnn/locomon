@@ -7,7 +7,7 @@ const {resolvePath} = require("./util/resolvePath");
 
 module.exports = merge(baseConfig, {
   output: {
-    library: 'JSONSchemaData',
+    library: 'locomon',
     libraryTarget: 'umd',
   },
   plugins: [

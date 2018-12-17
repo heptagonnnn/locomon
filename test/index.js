@@ -5,8 +5,12 @@ import Locomon from "../src";
 console.log(Locomon.setup);
 
 
-Locomon.post("/theSound/page/lottery/drawLottery", {
-  data: {a: 1}
+const tmp = new URLSearchParams();
+tmp.append("test", 1);
+tmp.append("test2", 2);
+
+Locomon.get("/theSound/page/lottery/drawLottery?tttt=333", {
+  params: tmp
 })
   .then(res => {
     console.log(res);

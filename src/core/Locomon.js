@@ -97,14 +97,14 @@ export default class Locomon {
   }
 
 
-  static get(url, config = this.defaultGETConfig || {}, rule) {
+  static get(url, config = this.defaultGETConfig || {}, settings) {
     config.method = "get";
-    return this.request(url, config, rule);
+    return this.request(url, config, settings);
   }
 
 
-  static post(url, config = this.defaultPOSTConfig || {}, rule) {
+  static post(url, config = this.defaultPOSTConfig || {}, settings) {
     config.method = "post";
-    return this.request(url, config, rule);
+    return this.request(url, config, settings);
   }
 }
