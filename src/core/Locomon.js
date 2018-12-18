@@ -51,12 +51,20 @@ export default class Locomon {
   }
 
 
-
-
-
+  /**
+   * 总的原则
+   * settings中使用除去config以外的设置，具体请求中的settings会覆盖默认settings中对应的字段
+   * config使用Object.assign进行覆盖，具体请求中的settings会与默认config合并，相同字段覆盖
+   */
   static request(url, config = {}, settings = this.defaultSettings) {
+
+
+
     // 默认get请求
-    const {params, method = "get", data = {}} = config;
+    const {method = "get"} = config;
+
+    config = {...(this[`default${method.toUpperCase()}Config`] || {}), ...config};
+    const {params, data} = config;
 
 
     // 参数部分
@@ -72,10 +80,12 @@ export default class Locomon {
       url = buildUrl(url, params);
     }
 
-    
 
+    if (settings !== this.defaultSettings) {
+      settings = {...this.defaultSettings, ...settings};
+    }
     // status校验
-    const {statusValidation, onSuccess, onError} = {...this.defaultSettings, ...settings};
+    const {statusValidation, onSuccess, onError} = settings;
 
 
     return fetch(url, config)
@@ -83,28 +93,28 @@ export default class Locomon {
         const {status} = res;
         if (!statusValidation(status)) {
           const errorBody = await res.text();
-          throw new LocomonError(status, `${status} error`, {
+          throw new LocomonError(status, {
             status, body: errorBody
           });
         }
         const body = await res.json();
 
         return onSuccess({status, body});
-      })
-      .catch(err => {
+      }).catch(err => {
         onError(err);
       });
   }
 
 
-  static get(url, config = this.defaultGETConfig || {}, settings) {
+  static get(url, config = this.defaultGETConfig, settings) {
     config.method = "get";
     return this.request(url, config, settings);
   }
 
 
-  static post(url, config = this.defaultPOSTConfig || {}, settings) {
+  static post(url, config = this.defaultPOSTConfig, settings) {
     config.method = "post";
     return this.request(url, config, settings);
   }
+
 }

@@ -2,7 +2,7 @@
 
 
 ## WHAT IS LOCOMON
-![avatar](./locomon.jpg)
+![locomon](./locomon.jpg)
 
 
 
@@ -44,18 +44,15 @@ npm i locomon
     // 错误名称
     name: "error name",
     // response.text()
-    body: LocomonBody,
-    // 错误信息，由错误信息+response.text()中的报错信息拼接而成
+    body: LocomonBody,
+    // 错误信息，若未设置，由错误名+response.text()中的报错信息拼接而成
     message: "error message"
 }
 ```
 
+### LocomonSetting
 
-
-### Locomon.setup(settings);
-
-setup 方法接受一个参数settings，settings种包含以下属性
-
+辅助对象，包含设置信息
 
 #### defaultConfig
 
@@ -74,7 +71,7 @@ setup 方法接受一个参数settings，settings种包含以下属性
     // 若对所有方法进行设置，则使用"default"作为属性
     "default": {
         headers: {...},
-        credentials: "inclde"
+        credentials: "include"
     },
     // 若要对具体的方法进行设置，则使用method的小写作为属性
     "get": {
@@ -102,6 +99,7 @@ onError方法调用时传入一个LocomonError对象作为参数
 ```javascript
 function onError(locomonError) {
     ...
+    throw ...
 }
 ```
 
@@ -111,23 +109,98 @@ onSuccess方法调用时传入一个LocomonBody对象作为参数
 ```javascript
 function onSuccess(locomonBody) {
     ...
+    return ...
 }
 ```
 
-### Locomon.request(url, config, settings)
 
-#### url, config
-直接传入fetch中
+
+### Locomon.setup(LocomonSetting);
+
+setup 方法接受一个参数LocomonSetting，用于对请求进行全局设置
+
+
+
+### Locomon.request(url, config, LocomonSetting)
+
+config.params用于拼接get 请求的query
+config.data用于拼接其他请求的body
+
+config.body会被忽略
+
+
+fetch中实际使用的config为{...defaultMethodConfig, ...config}
+实际使用的setting为{...defaultSetting, ...LocomonSetting}
+
+**注意**
+setting中的defaultConfig字段会被忽略
+
 
 ### Locomon.get
-
+等同于
+Locomon.request(url, {method: "get", ...}, LocomonSetting);
 ### Locomon.post
+等同于
+Locomon.request(url, {method: "post", ...}, LocomonSetting);
 
-
-
+### 注意！
+目前只有get方法和post方法被单独抽出，其他方法还需使用request
 
 
 ## Example
+
+
+```javascript
+
+const defaultSettings = {
+    defaultConfig: {
+        default: {
+            headers: {
+                "content-type": "application/json"
+            }
+        },
+        get: {
+            headers: {}
+        }
+    },
+    statusValidation(status) {
+        return status >= 200 && status < 400;
+    },
+    onError(error) {
+        if (error.status === 500) {
+            ....
+            alert(error.message);
+        } else if (error.status === 404) {
+            ...
+        }
+    },
+    onSuccess(res) {
+        if (res.status === 200) {
+            // 某些自定义特殊条件
+            if (res.ret === 303) {
+                throw .....
+            }
+        }
+    }
+
+}
+
+
+
+Locomon.setup(defaultSettings);
+
+
+Locomon.get("https//www.test.com", {
+    params: {
+        foo: 1
+    }
+}).then(res => {
+  ...
+}).catch(err => {
+    ...
+}) 
+
+```
 
 
 

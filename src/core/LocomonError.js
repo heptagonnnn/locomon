@@ -5,13 +5,13 @@
 
 
 export default class LocomonError {
-  constructor(name, message, body) {
+  constructor(name, body, message) {
     this.name = name;
     this.body = body;
-    this.message= this.buildMessage(message, body.body);
+    this.message= message || this.buildMessage(name, body.body);
   }
 
-  buildMessage(message, detail) {
-    return `${message}: ${detail}`;
+  buildMessage(name, detail) {
+    return `${name}: ${detail}`;
   }
 }
