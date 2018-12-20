@@ -2,6 +2,13 @@ import Locomon from "../src";
 
 
 //
+Locomon.setup({
+  defaultConfig: {
+    "default" : {
+      credentials: "include"
+    }
+  }
+});
 console.log(Locomon.setup);
 
 

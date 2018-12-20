@@ -129,11 +129,12 @@ config.data用于拼接其他请求的body
 config.body会被忽略
 
 
+
+**注意**
+使用request时，LocomonSetting中的defaultConfig字段会被忽略
 fetch中实际使用的config为{...defaultMethodConfig, ...config}
 实际使用的setting为{...defaultSetting, ...LocomonSetting}
 
-**注意**
-setting中的defaultConfig字段会被忽略
 
 
 ### Locomon.get

@@ -6,6 +6,12 @@ import {buildUrl} from "../util/buildUrl";
 export default class Locomon {
 
 
+
+  // 默认config
+
+  defaultConfig = {};
+
+
   static defaultSettings = {
     statusValidation: defaultStatusValidation,
     onSuccess(res) {
@@ -16,6 +22,7 @@ export default class Locomon {
     },
     defaultConfig: {}
   };
+
 
 
   static setup(settings) {
@@ -62,8 +69,8 @@ export default class Locomon {
 
     // 默认get请求
     const {method = "get"} = config;
-
-    config = {...(this[`default${method.toUpperCase()}Config`] || {}), ...config};
+    
+    config = {...this.defaultConfig, ...(this[`default${method.toUpperCase()}Config`] || {}), ...config};
     const {params, data} = config;
 
 
@@ -106,13 +113,13 @@ export default class Locomon {
   }
 
 
-  static get(url, config = this.defaultGETConfig, settings) {
+  static get(url, config = {}, settings) {
     config.method = "get";
     return this.request(url, config, settings);
   }
 
 
-  static post(url, config = this.defaultPOSTConfig, settings) {
+  static post(url, config = {}, settings) {
     config.method = "post";
     return this.request(url, config, settings);
   }
