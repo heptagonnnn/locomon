@@ -37,12 +37,16 @@ module.exports = {
         test: /\.js$/, use: [{
           loader: 'babel-loader?cacheDirectory=true',
           options: {
-            "presets": ["@babel/preset-env", "@babel/preset-react"],
+            "presets": [
+              [
+                "@babel/preset-env",
+              ], "@babel/preset-react"],
             "plugins": [
               ["@babel/plugin-proposal-decorators", {"legacy": true}],
               ["@babel/plugin-proposal-class-properties", {"legacy": true}],
               ["@babel/plugin-syntax-dynamic-import"],
-              ["@babel/plugin-transform-runtime"]
+              ["@babel/plugin-transform-runtime"],
+              ["@babel/plugin-transform-object-assign"]
             ],
           }
         }],
