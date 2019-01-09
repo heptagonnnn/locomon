@@ -1,27 +1,22 @@
 import Locomon from "../src";
 
 
-//
-Locomon.setup({
-  defaultConfig: {
-    "default" : {
-      credentials: "include"
-    }
-  }
+
+
+
+document.getElementById("test").addEventListener("change", (e) => {
+
+  const formData = new FormData();
+  formData.append("file", e.target.files[0]);
+  Locomon.post("/bgupload/dtres/backend/picture/upload", {
+    data: formData
+  })
+    .then(res => {
+      console.log(res);
+    })
 });
-console.log(Locomon.setup);
 
 
-const tmp = new URLSearchParams();
-tmp.append("test", 1);
-tmp.append("test2", 2);
-
-Locomon.get("/theSound/page/lottery/drawLottery?tttt=333", {
-  params: tmp
-})
-  .then(res => {
-    console.log(res);
-    return res;
-  }).catch(err => {
-  console.log(err);
-})
+document.getElementById("test_btn").addEventListener("click", () => {
+  document.getElementById("test").click();
+});

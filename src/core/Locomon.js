@@ -6,7 +6,6 @@ import {buildUrl} from "../util/buildUrl";
 export default class Locomon {
 
 
-
   // 默认config
 
   defaultConfig = {};
@@ -22,7 +21,6 @@ export default class Locomon {
     },
     defaultConfig: {}
   };
-
 
 
   static setup(settings) {
@@ -69,19 +67,23 @@ export default class Locomon {
 
     // 默认get请求
     const {method = "get"} = config;
-    
+
     config = {...this.defaultConfig, ...(this[`default${method.toUpperCase()}Config`] || {}), ...config};
     const {params, data} = config;
 
 
     // 参数部分
     if (method.toLowerCase() !== "get") {
-      try {
-        config.body = JSON.stringify(data);
-      } catch (err) {
-        const errorMessage = "invalid data, error in json stringify";
-        console.error(errorMessage);
-        throw new Error(err);
+      if (!config.headers || config.headers && config.headers.get("content-type") !== "application/json") {
+        config.body = data;
+      } else {
+        try {
+          config.body = JSON.stringify(data);
+        } catch (err) {
+          const errorMessage = "invalid data, error in json stringify";
+          console.error(errorMessage);
+          throw new Error(err);
+        }
       }
     } else {
       url = buildUrl(url, params);

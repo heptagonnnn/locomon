@@ -1,14 +1,9 @@
 function proxy () {
   return {
-    "/theSound/*": {
+    "/bgupload/*": {
+      target: "http://ops.test.ximalaya.com",
       changeOrigin: true,
       secure: false,
-      target: "http://hybrid.test.ximalaya.com"
-    },
-    "/xmcaptcha-service/*": {
-      changeOrigin: true,
-      secure: false,
-      target: "http://hybrid.test.ximalaya.com"
     }
   };
 }
