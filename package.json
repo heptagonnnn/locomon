@@ -1,8 +1,8 @@
 {
   "name": "locomon",
-  "version": "0.0.1-5",
+  "version": "0.0.1-6",
   "description": "lightweight fetch tool",
-  "updateInfo": "file upload bug fix",
+  "updateInfo": "output libraryTarget fix",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server --dev --colors --config webpack/webpack.dev.config.js --mode development",

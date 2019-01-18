@@ -8,7 +8,7 @@ const {resolvePath} = require("./util/resolvePath");
 module.exports = merge(baseConfig, {
   output: {
     library: 'locomon',
-    libraryTarget: 'umd',
+    libraryTarget: 'commonjs2',
   },
   plugins: [
     new CleanWebpackPlugin('dist', {

@@ -1,4 +1,4 @@
-import Locomon from "../src";
+import Locomon from "../dist";
 
 
 
