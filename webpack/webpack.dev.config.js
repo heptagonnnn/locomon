@@ -24,11 +24,11 @@ module.exports = merge(baseConfig, {
     proxy: proxy() || {}
   },
   plugins: [
-    // new CleanWebpackPlugin('dist', {
-    //   root: resolvePath(),
-    //   verbose: true,
-    //   dry: false
-    // }),
+    new CleanWebpackPlugin('dist', {
+      root: resolvePath(),
+      verbose: true,
+      dry: false
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(resolvePath('test'), 'index.html')
     }),
