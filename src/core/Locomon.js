@@ -71,6 +71,23 @@ export default class Locomon {
     config = {...this.defaultConfig, ...(this[`default${method.toUpperCase()}Config`] || {}), ...config};
     const {params, data} = config;
 
+    // headersformat和analysis
+
+    if (config.headers) {
+      const {headers} = config;
+      if (typeof headers !== "object") {
+        throw new Error("invalid headers");
+      }
+
+      if (!(headers instanceof Headers)) {
+        const tmp_headers = new Headers();
+        Object.keys(headers).forEach((key) => {
+          tmp_headers.append(key, headers[key]);
+        });
+        config.headers = tmp_headers;
+      }
+
+    }
 
     // 参数部分
     if (method.toLowerCase() !== "get") {
