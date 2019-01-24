@@ -1,22 +1,30 @@
-import Locomon from "../dist";
+import Locomon from '../src/index';
 
 
+const url = "http://localhost:3001";
 
+// // get test ----pass
+//
+// Locomon.get(url)
+//   .then(res => {
+//     console.log(res);
+//   });
+//
+//
+// // post test ----pass
+//
+// Locomon.post(`${url}/post`)
+//   .then(res => {
+//     console.log(res);
+//   });
+//
 
+// post analyse headers
 
-document.getElementById("test").addEventListener("change", (e) => {
-
-  const formData = new FormData();
-  formData.append("file", e.target.files[0]);
-  Locomon.post("/bgupload/dtres/backend/picture/upload", {
-    data: formData
-  })
-    .then(res => {
-      console.log(res);
-    })
-});
-
-
-document.getElementById("test_btn").addEventListener("click", () => {
-  document.getElementById("test").click();
+Locomon.post(`${url}/post`, {
+  headers: {
+    "content-type": "application/json"
+  }
+}).then(res => {
+  console.log(res);
 });

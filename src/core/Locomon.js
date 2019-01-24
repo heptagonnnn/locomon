@@ -89,6 +89,7 @@ export default class Locomon {
 
     }
 
+    console.log(config);
     // 参数部分
     if (method.toLowerCase() !== "get") {
       if (!config.headers || config.headers && config.headers.get("content-type") !== "application/json") {
