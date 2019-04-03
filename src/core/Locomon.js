@@ -1,6 +1,7 @@
-import {defaultStatusValidation} from "../util/statusValidation";
 import LocomonError from "./LocomonError";
 import {buildUrl} from "../util/buildUrl";
+import {analyseHeaders} from "../util/analyseHeaders";
+import {DEFAULT_SETTINGS} from "../const/DEFAULT_SETTINGS";
 
 
 export default class Locomon {
@@ -8,19 +9,10 @@ export default class Locomon {
 
   // 默认config
 
-  defaultConfig = {};
+  static defaultConfig = {};
 
 
-  static defaultSettings = {
-    statusValidation: defaultStatusValidation,
-    onSuccess(res) {
-      return res;
-    },
-    onError(LocomonError) {
-      throw LocomonError;
-    },
-    defaultConfig: {}
-  };
+  static defaultSettings = DEFAULT_SETTINGS;
 
 
   static setup(settings) {
@@ -73,23 +65,9 @@ export default class Locomon {
 
     // headersformat和analysis
 
-    if (config.headers) {
-      const {headers} = config;
-      if (typeof headers !== "object") {
-        throw new Error("invalid headers");
-      }
+   config = analyseHeaders(config);
 
-      if (!(headers instanceof Headers)) {
-        const tmp_headers = new Headers();
-        Object.keys(headers).forEach((key) => {
-          tmp_headers.append(key, headers[key]);
-        });
-        config.headers = tmp_headers;
-      }
 
-    }
-
-    console.log(config);
     // 参数部分
     if (method.toLowerCase() !== "get") {
       if (!config.headers || config.headers && config.headers.get("content-type") !== "application/json") {
